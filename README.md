@@ -82,10 +82,19 @@ Typical outputs:
 - `windsurf` -> `.windsurfrules`
 - `codex` -> `AGENTS.md`
 
-Install one with:
+Install one with the generic entrypoint:
 
 ```bash
 python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool codex --project-root .
+```
+
+Or use a tool-specific installer that another agent can discover more easily:
+
+```bash
+python .agents/skills/project-doc-tracker/scripts/install_codex_rule.py --project-root .
+python .agents/skills/project-doc-tracker/scripts/install_claude_rule.py --project-root .
+python .agents/skills/project-doc-tracker/scripts/install_cursor_rule.py --project-root .
+python .agents/skills/project-doc-tracker/scripts/install_windsurf_rule.py --project-root .
 ```
 
 For Kiro specifically:

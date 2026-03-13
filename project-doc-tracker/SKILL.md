@@ -113,4 +113,10 @@ Read `references/prompt-examples.md` when you want ready-to-use prompt templates
 - When the user wants continuous follow-up, explain that the skill can be paired with automation, but the skill alone is not a scheduler.
 - If the repo already contains meaningful code, do not leave the freshly initialized tracker mostly empty; scan the codebase and backfill the initial `OVERVIEW.md`, key feature notes, and formal-doc candidates.
 - For Kiro users, installation of the skill does not automatically create `.kiro/steering/project-doc-tracker.md`. Use `scripts/setup_kiro_steering.py` to install it into a target project, or fall back to `references/steering-template.md` for manual copy.
-- For Claude Code, Cursor, Windsurf, and Codex users, use `scripts/setup_tool_rules.py --tool <tool>` to install the matching persistent project rule file into the target repo.
+- For Claude Code, Cursor, Windsurf, and Codex users, prefer the tool-specific installer scripts so another agent can discover and run them directly:
+  - `scripts/install_claude_rule.py`
+  - `scripts/install_cursor_rule.py`
+  - `scripts/install_windsurf_rule.py`
+  - `scripts/install_codex_rule.py`
+- Keep `scripts/setup_tool_rules.py --tool <tool>` as the generic fallback when you need a single multi-tool entrypoint.
+- When the user asks for persistent project rules, do not just describe the files. Run the installer script from this skill directory so the target repo actually gets the matching `CLAUDE.md`, `.cursorrules`, `.windsurfrules`, `AGENTS.md`, or Kiro steering file.

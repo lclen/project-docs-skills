@@ -88,3 +88,15 @@ Prefer evidence in this order when multiple sources are available:
 - `high`: directly supported by current files or explicit user statements
 - `medium`: strongly inferred from multiple signals
 - `low`: plausible but not confirmed; write conservatively
+
+## Persistent Rule Installation
+
+When the user wants the tracker behavior to persist across coding sessions in a specific AI tool, prefer running an installer script from this skill directory instead of merely describing what to copy.
+
+- Kiro: `scripts/setup_kiro_steering.py`
+- Claude Code: `scripts/install_claude_rule.py`
+- Cursor: `scripts/install_cursor_rule.py`
+- Windsurf: `scripts/install_windsurf_rule.py`
+- Codex: `scripts/install_codex_rule.py`
+
+Use `scripts/setup_tool_rules.py --tool <tool>` only when a generic entrypoint is more convenient than the tool-specific wrapper.

@@ -43,14 +43,26 @@ def install_rule(root: Path, tool: str, *, force: bool) -> Path:
     return target
 
 
+def add_common_arguments(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+    parser.add_argument("--project-root", default=None)
+    parser.add_argument("--force", action="store_true")
+    return parser
+
+
+def run_installer(tool: str, description: str) -> int:
+    parser = add_common_arguments(argparse.ArgumentParser(description=description))
+    args = parser.parse_args()
+    target = install_rule(project_root(args.project_root), tool, force=args.force)
+    print(target)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Install project-doc-tracker rules into a target AI coding tool's project rule file."
     )
     parser.add_argument("--tool", choices=sorted(TOOL_TARGETS), required=True)
-    parser.add_argument("--project-root", default=None)
-    parser.add_argument("--force", action="store_true")
-    return parser
+    return add_common_arguments(parser)
 
 
 def main() -> int:

@@ -1,28 +1,26 @@
 from __future__ import annotations
 
+import importlib.util
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
-import importlib.util
 
 
-SCRIPT_PATH = Path(__file__).with_name("project_tracker.py")
-SPEC = importlib.util.spec_from_file_location("project_tracker", SCRIPT_PATH)
-assert SPEC and SPEC.loader
-project_tracker = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(project_tracker)
+def load_module(file_name: str, module_name: str):
+    script_path = Path(__file__).with_name(file_name)
+    spec = importlib.util.spec_from_file_location(module_name, script_path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
-STEERING_SCRIPT_PATH = Path(__file__).with_name("setup_kiro_steering.py")
-STEERING_SPEC = importlib.util.spec_from_file_location("setup_kiro_steering", STEERING_SCRIPT_PATH)
-assert STEERING_SPEC and STEERING_SPEC.loader
-setup_kiro_steering = importlib.util.module_from_spec(STEERING_SPEC)
-STEERING_SPEC.loader.exec_module(setup_kiro_steering)
 
-TOOL_RULES_SCRIPT_PATH = Path(__file__).with_name("setup_tool_rules.py")
-TOOL_RULES_SPEC = importlib.util.spec_from_file_location("setup_tool_rules", TOOL_RULES_SCRIPT_PATH)
-assert TOOL_RULES_SPEC and TOOL_RULES_SPEC.loader
-setup_tool_rules = importlib.util.module_from_spec(TOOL_RULES_SPEC)
-TOOL_RULES_SPEC.loader.exec_module(setup_tool_rules)
+project_tracker = load_module("project_tracker.py", "project_tracker")
+setup_kiro_steering = load_module("setup_kiro_steering.py", "setup_kiro_steering")
+setup_tool_rules = load_module("setup_tool_rules.py", "setup_tool_rules")
+install_codex_rule = load_module("install_codex_rule.py", "install_codex_rule")
 
 
 class ProjectTrackerTests(unittest.TestCase):
@@ -113,7 +111,7 @@ class ProjectTrackerTests(unittest.TestCase):
             next_step="next",
             files=["src/alpha.py"],
             risks="risk",
-            evidence=["修改了 src/alpha.py", "补了 tracker 记录"],
+            evidence=["Updated src/alpha.py", "Captured the tracker record"],
             related_docs=["docs/specs/alpha.md"],
             formal_doc="docs/modules/alpha.md",
         )
@@ -135,7 +133,7 @@ class ProjectTrackerTests(unittest.TestCase):
 
         note = project_tracker.feature_note_path(self.root, "alpha-note").read_text(encoding="utf-8")
         self.assertIn("## 状态判断依据", note)
-        self.assertIn("- 修改了 src/alpha.py", note)
+        self.assertIn("- Updated src/alpha.py", note)
         self.assertIn("## 相关文档", note)
         self.assertIn("- docs/specs/alpha.md", note)
         self.assertIn("docs/modules/alpha.md", note)
@@ -156,6 +154,22 @@ class ProjectTrackerTests(unittest.TestCase):
         self.assertEqual(codex_target, self.root / "AGENTS.md")
         self.assertIn("## Project Progress Tracking Rules", cursor_target.read_text(encoding="utf-8"))
         self.assertIn("## Project Progress Tracking Rules", codex_target.read_text(encoding="utf-8"))
+
+    def test_tool_specific_installer_modules_share_generic_logic(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(Path(install_codex_rule.__file__)),
+                "--project-root",
+                str(self.root),
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertIn("AGENTS.md", result.stdout)
+        self.assertTrue((self.root / "AGENTS.md").exists())
 
 
 if __name__ == "__main__":
