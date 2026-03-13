@@ -101,6 +101,12 @@ Do not append a new progress entry for every user message, every small prompt re
 
 When several small changes belong to the same short work burst, merge them into one session summary instead of creating multiple near-duplicate entries.
 
+Use this one-line check before appending to `PROGRESS.md`:
+
+> Will this specific entry noticeably help a future agent recover the real project state faster?
+
+If the answer is no, prefer updating only `OVERVIEW.md` or the relevant feature note.
+
 ## Tracker Layout
 
 Default project-local storage:

@@ -25,6 +25,7 @@
 - `Please use $project-doc-tracker to record this development update only if it represents meaningful project progress, then refresh OVERVIEW, PROGRESS, and the relevant feature note.`
 - `Use $project-doc-tracker to sync the status of memory-system, preserve any existing formal document link, and add status evidence.`
 - `Please use $project-doc-tracker to capture today's web-server changes as a single session summary if they meaningfully changed the current state, next step, or blockers.`
+- `Please use $project-doc-tracker to log this work only if the entry would clearly help a future agent recover project state faster; otherwise just refresh OVERVIEW and the feature note.`
 
 ## Recover Project Context
 

@@ -35,6 +35,12 @@ This mode means "initialize tracker docs", not project bootstrap, dependency ins
 6. Update `OVERVIEW.md` with `sync-item` if the active-item table changed.
 7. Prefer reusing the same `feature_id` so the overview row is merged instead of duplicated.
 
+Fast heuristic:
+
+> Will this entry help a future agent recover the real project state faster?
+
+If not, skip a new `PROGRESS.md` entry and update only the overview or feature note.
+
 ### Mode: recover
 
 1. Read `OVERVIEW.md`.

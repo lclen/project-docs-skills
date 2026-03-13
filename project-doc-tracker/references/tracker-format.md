@@ -130,6 +130,10 @@ Usually skip a separate entry for:
 
 If a small change matters to the current state, prefer reflecting it in `OVERVIEW.md` or the feature note without growing `PROGRESS.md`.
 
+Simple rule of thumb:
+
+> If this entry would not noticeably help a future agent recover project state faster, it probably does not belong in `PROGRESS.md`.
+
 ## Overview Block Behavior
 
 - `sync-item` should merge rows by `feature_id`, not overwrite the full table with a single item.

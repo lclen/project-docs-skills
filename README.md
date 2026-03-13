@@ -72,6 +72,10 @@ Typical outputs:
 3. When a feature or module becomes stable, use `professional-markdown` to create the long-form formal document.
 4. Backfill the resulting formal doc path into the tracker.
 
+Practical rule of thumb:
+
+> If an entry would not noticeably help a future agent recover project state faster, it probably should not be a new `PROGRESS.md` entry.
+
 ## Persistent Tool Rules
 
 `project-doc-tracker` also includes rule installers for major AI coding tools:
