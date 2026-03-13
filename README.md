@@ -105,4 +105,4 @@ project-docs-skills/
 
 - `skills.sh` does not currently use a separate publish button. Public Git repositories are shared directly, and wider usage helps them surface in the ecosystem.
 - This repo is intentionally focused on documentation workflow, not on generic coding or project bootstrap.
-- For Kiro users, installing the skill package does not automatically create `.kiro/steering/project-doc-tracker.md` inside a project. Use `project-doc-tracker/references/steering-template.md` and copy it into the target repo when persistent Kiro steering is needed.
+- For Kiro users, installing the skill package does not automatically create `.kiro/steering/project-doc-tracker.md` inside a project. Use `project-doc-tracker/scripts/setup_kiro_steering.py --project-root .` to install it into the target repo, or fall back to `project-doc-tracker/references/steering-template.md` for manual copy.
