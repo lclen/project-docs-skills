@@ -1,38 +1,3 @@
-# Steering Template: project-doc-tracker
-
-Copy the content below into the rule file used by your AI tool so it remembers to record meaningful project progress automatically.
-
-For Kiro users, you can install this block automatically with:
-
-```bash
-python .agents/skills/project-doc-tracker/scripts/setup_kiro_steering.py --project-root .
-```
-
-For other tools, use:
-
-```bash
-python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool claude --project-root .
-python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool cursor --project-root .
-python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool windsurf --project-root .
-python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool codex --project-root .
-```
-
-## Tool Mapping
-
-| Tool | Rule File Location |
-| --- | --- |
-| Kiro | `.kiro/steering/project-doc-tracker.md` (install with `scripts/setup_kiro_steering.py`, or copy manually if needed) |
-| Claude Code | `CLAUDE.md` or `.claude/CLAUDE.md` |
-| Cursor | `.cursorrules` or `.cursor/rules/*.mdc` |
-| Windsurf | `.windsurfrules` |
-| Codex | `AGENTS.md` |
-| Other | `AGENTS.md` at the repo root or the tool-specific rules file |
-
----
-
-## Copy Block
-
-```markdown
 ## Project Progress Tracking Rules
 
 This project uses the `project-doc-tracker` skill to preserve development progress over time.
@@ -79,7 +44,7 @@ Sync the overview:
 
 - Do not write high-confidence progress from memory alone; check `git status`, changed files, or specs first.
 - Do not delete or overwrite the history in `PROGRESS.md`.
-- Do not auto-edit `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, or similar rule files.
+- Do not auto-edit `.kiro/steering/` files other than this tracker rule file unless explicitly requested.
 
 ### Tracker Paths
 
@@ -90,4 +55,3 @@ docs/project-tracker/features/     - lightweight feature notes
 If `docs/project-tracker/` does not exist yet, run:
 
   python .agents/skills/project-doc-tracker/scripts/project_tracker.py --project-root . init
-```

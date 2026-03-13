@@ -43,3 +43,10 @@
 - `Please use $project-doc-tracker to identify which done or stable modules are ready for promote-to-doc and give me a candidate list.`
 - `Use $project-doc-tracker to read the tracker notes and code, then hand memory-system off to professional-markdown for a full formal document.`
 - `Please use $project-doc-tracker to run a batch documentation pass over the current repo, identify mature modules, and mark which ones should get docs/modules formal documentation.`
+
+## Install Persistent Tool Rules
+
+- `Please use $project-doc-tracker to install persistent Kiro steering into this repo.`
+- `Please use $project-doc-tracker to install a CLAUDE.md rule file for this repo so Claude Code remembers to record project progress.`
+- `Please use $project-doc-tracker to install Cursor rules for this repository using the provided tool-rule installer.`
+- `Please use $project-doc-tracker to install AGENTS.md guidance for Codex so progress tracking stays persistent across sessions.`

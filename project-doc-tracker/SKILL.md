@@ -113,3 +113,4 @@ Read `references/prompt-examples.md` when you want ready-to-use prompt templates
 - When the user wants continuous follow-up, explain that the skill can be paired with automation, but the skill alone is not a scheduler.
 - If the repo already contains meaningful code, do not leave the freshly initialized tracker mostly empty; scan the codebase and backfill the initial `OVERVIEW.md`, key feature notes, and formal-doc candidates.
 - For Kiro users, installation of the skill does not automatically create `.kiro/steering/project-doc-tracker.md`. Use `scripts/setup_kiro_steering.py` to install it into a target project, or fall back to `references/steering-template.md` for manual copy.
+- For Claude Code, Cursor, Windsurf, and Codex users, use `scripts/setup_tool_rules.py --tool <tool>` to install the matching persistent project rule file into the target repo.

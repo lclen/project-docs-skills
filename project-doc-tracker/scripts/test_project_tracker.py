@@ -18,6 +18,12 @@ assert STEERING_SPEC and STEERING_SPEC.loader
 setup_kiro_steering = importlib.util.module_from_spec(STEERING_SPEC)
 STEERING_SPEC.loader.exec_module(setup_kiro_steering)
 
+TOOL_RULES_SCRIPT_PATH = Path(__file__).with_name("setup_tool_rules.py")
+TOOL_RULES_SPEC = importlib.util.spec_from_file_location("setup_tool_rules", TOOL_RULES_SCRIPT_PATH)
+assert TOOL_RULES_SPEC and TOOL_RULES_SPEC.loader
+setup_tool_rules = importlib.util.module_from_spec(TOOL_RULES_SPEC)
+TOOL_RULES_SPEC.loader.exec_module(setup_tool_rules)
+
 
 class ProjectTrackerTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -141,6 +147,15 @@ class ProjectTrackerTests(unittest.TestCase):
         self.assertTrue(target.exists())
         self.assertIn("## Project Progress Tracking Rules", content)
         self.assertNotIn("# Steering Template: project-doc-tracker", content)
+
+    def test_setup_tool_rules_installs_cursor_and_codex_targets(self) -> None:
+        cursor_target = setup_tool_rules.install_rule(self.root, "cursor", force=False)
+        codex_target = setup_tool_rules.install_rule(self.root, "codex", force=False)
+
+        self.assertEqual(cursor_target, self.root / ".cursorrules")
+        self.assertEqual(codex_target, self.root / "AGENTS.md")
+        self.assertIn("## Project Progress Tracking Rules", cursor_target.read_text(encoding="utf-8"))
+        self.assertIn("## Project Progress Tracking Rules", codex_target.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
