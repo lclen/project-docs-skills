@@ -112,3 +112,4 @@ Read `references/prompt-examples.md` when you want ready-to-use prompt templates
 - When generating formal documentation, reuse `$professional-markdown` instead of extending `project_tracker.py`.
 - When the user wants continuous follow-up, explain that the skill can be paired with automation, but the skill alone is not a scheduler.
 - If the repo already contains meaningful code, do not leave the freshly initialized tracker mostly empty; scan the codebase and backfill the initial `OVERVIEW.md`, key feature notes, and formal-doc candidates.
+- For Kiro users, installation of the skill does not automatically create `.kiro/steering/project-doc-tracker.md`; use `references/steering-template.md` as the source and copy it into the project when persistent Kiro steering is needed.

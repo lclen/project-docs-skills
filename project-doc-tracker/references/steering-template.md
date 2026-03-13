@@ -6,7 +6,7 @@ Copy the content below into the rule file used by your AI tool so it remembers t
 
 | Tool | Rule File Location |
 | --- | --- |
-| Kiro | `.kiro/steering/project-doc-tracker.md` (already included) |
+| Kiro | `.kiro/steering/project-doc-tracker.md` (copy this template there manually; skill installation alone does not create it) |
 | Claude Code | `CLAUDE.md` or `.claude/CLAUDE.md` |
 | Cursor | `.cursorrules` or `.cursor/rules/*.mdc` |
 | Windsurf | `.windsurfrules` |
