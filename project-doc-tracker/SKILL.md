@@ -44,6 +44,8 @@ Use slug-like `feature_id` values such as `memory-system` or `project_doc_tracke
 
 Here, "initialize" means initializing the tracker documentation system, not project bootstrap, dependency install, runtime setup, or test setup.
 
+Treat `log` as a "meaningful progress entry", not a transcript of every prompt or every tiny fix.
+
 ### 3. Prefer the helper script for deterministic writes
 
 Use `scripts/project_tracker.py` for file creation and updates instead of hand-editing tracker Markdown whenever practical.
@@ -84,6 +86,21 @@ The tracker is a memory aid, not a source of fabricated truth.
 
 `PROGRESS.md` is an audit-style log. Do not delete or silently rewrite old entries. If you need to correct a previous note, append a new correction entry.
 
+### 7. Keep `PROGRESS.md` selective
+
+Only append a `PROGRESS.md` entry when the change is important enough to help future recovery. Good candidates include:
+
+- a feature moved to a new status such as `planned`, `in_progress`, `blocked`, `done`, or `stable`
+- a meaningful implementation milestone was reached
+- architecture, behavior, or scope changed in a way that future work depends on
+- a blocker appeared, changed, or was cleared
+- a formal-document handoff happened
+- a batch of related fixes together changed the practical state of the feature
+
+Do not append a new progress entry for every user message, every small prompt refinement, every isolated typo fix, or every tiny bug fix that does not change the project's recoverable state.
+
+When several small changes belong to the same short work burst, merge them into one session summary instead of creating multiple near-duplicate entries.
+
 ## Tracker Layout
 
 Default project-local storage:
@@ -107,11 +124,14 @@ Read `references/prompt-examples.md` when you want ready-to-use prompt templates
 - When the user asks to "initialize" this skill, interpret it as "initialize tracker docs" unless they explicitly ask for runtime or bootstrap work.
 - Do not auto-edit `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, or similar rule files by default.
 - Do not dump raw repo state into the tracker; summarize it.
+- Do not treat `PROGRESS.md` as a chat transcript or full bug diary.
 - Do not create duplicate feature notes when a stable file for the same feature already exists.
 - Do not try to force formal docs into `docs/project-tracker/features/`; keep those notes lightweight.
 - When generating formal documentation, reuse `$professional-markdown` instead of extending `project_tracker.py`.
 - When the user wants continuous follow-up, explain that the skill can be paired with automation, but the skill alone is not a scheduler.
 - If the repo already contains meaningful code, do not leave the freshly initialized tracker mostly empty; scan the codebase and backfill the initial `OVERVIEW.md`, key feature notes, and formal-doc candidates.
+- Prefer `OVERVIEW.md` for the current state and `PROGRESS.md` for meaningful history. Most sessions should read the overview first and only inspect recent progress entries when needed.
+- If a change only updates wording, formatting, or a trivial local fix without changing the recoverable project state, prefer updating `OVERVIEW.md` or the feature note without appending a new progress entry.
 - For Kiro users, installation of the skill does not automatically create `.kiro/steering/project-doc-tracker.md`. Use `references/steering-template.md` as the source and copy the rule block into the target repo.
 - For Claude Code, Cursor, Windsurf, and Codex users, use the matching file under `references/tool-rule-templates/` and copy it into the target repo's persistent rule file:
   - `claude.md` -> `CLAUDE.md`

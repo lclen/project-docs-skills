@@ -68,7 +68,7 @@ Typical outputs:
 ## Recommended Workflow
 
 1. Use `project-doc-tracker` to initialize or update the tracker documentation system.
-2. Keep `OVERVIEW.md`, `PROGRESS.md`, and lightweight feature notes current during development.
+2. Keep `OVERVIEW.md`, `PROGRESS.md`, and lightweight feature notes current during development, but treat `PROGRESS.md` as meaningful history rather than a transcript of every tiny fix.
 3. When a feature or module becomes stable, use `professional-markdown` to create the long-form formal document.
 4. Backfill the resulting formal doc path into the tracker.
 

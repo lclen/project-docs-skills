@@ -46,7 +46,7 @@ To be filled in.
 
 ## PROGRESS.md Entry Shape
 
-Append a new section per session:
+Append a new section only for a meaningful session-level update, not for every prompt or every tiny fix:
 
 ```markdown
 ## 2026-03-13T11:20:00+08:00
@@ -110,6 +110,25 @@ To be filled in.
 
 Keep feature notes intentionally lightweight. They are tracker-side memory aids, not replacements for full docs.
 They can be slightly richer than a bare card, but should still stay much shorter than `docs/modules/*.md`.
+
+## Progress Selectivity
+
+Use `PROGRESS.md` for recoverable milestones, not exhaustive narration.
+
+Good examples:
+
+- a feature moved from `planned` to `in_progress`
+- a blocker was identified or removed
+- a group of related bug fixes changed the feature's practical state
+- a completed feature was promoted into a formal document
+
+Usually skip a separate entry for:
+
+- a wording tweak
+- a tiny isolated fix
+- back-and-forth prompting with no meaningful state change
+
+If a small change matters to the current state, prefer reflecting it in `OVERVIEW.md` or the feature note without growing `PROGRESS.md`.
 
 ## Overview Block Behavior
 

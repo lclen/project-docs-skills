@@ -20,16 +20,20 @@ This mode means "initialize tracker docs", not project bootstrap, dependency ins
 
 1. Inspect repo evidence first.
 2. Summarize the session in one or two sentences.
-3. Identify:
+3. Decide whether the change is large enough for `PROGRESS.md`:
+   - log it when status, architecture, blockers, scope, or a meaningful milestone changed
+   - skip a new progress entry when the change is only a tiny fix, wording tweak, or prompt-level back-and-forth
+   - merge several nearby small fixes into one session entry when they belong to the same short work burst
+4. Identify:
    - change type
    - feature or topic ID
    - changed files
    - next step
    - blockers
    - confidence
-4. Run the helper script with `log`.
-5. Update `OVERVIEW.md` with `sync-item` if the active-item table changed.
-6. Prefer reusing the same `feature_id` so the overview row is merged instead of duplicated.
+5. Run the helper script with `log` only if the session cleared the "meaningful progress" threshold.
+6. Update `OVERVIEW.md` with `sync-item` if the active-item table changed.
+7. Prefer reusing the same `feature_id` so the overview row is merged instead of duplicated.
 
 ### Mode: recover
 
@@ -88,6 +92,26 @@ Prefer evidence in this order when multiple sources are available:
 - `high`: directly supported by current files or explicit user statements
 - `medium`: strongly inferred from multiple signals
 - `low`: plausible but not confirmed; write conservatively
+
+## What Belongs in `PROGRESS.md`
+
+Good fits:
+
+- feature status changes
+- meaningful milestones
+- blockers introduced or cleared
+- architecture or scope decisions
+- batches of related fixes that materially changed the implementation state
+- formal-doc promotion passes
+
+Usually not worth a separate entry:
+
+- a single typo fix
+- a tiny cosmetic refactor
+- a one-line prompt clarification
+- several micro-bugfixes that can be summarized together later
+
+When in doubt, ask: "Will this specific entry help a future agent recover project state faster?" If not, prefer updating only `OVERVIEW.md` or the relevant feature note.
 
 ## Persistent Rule Installation
 
