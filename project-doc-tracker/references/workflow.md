@@ -91,12 +91,12 @@ Prefer evidence in this order when multiple sources are available:
 
 ## Persistent Rule Installation
 
-When the user wants the tracker behavior to persist across coding sessions in a specific AI tool, prefer running an installer script from this skill directory instead of merely describing what to copy.
+When the user wants the tracker behavior to persist across coding sessions in a specific AI tool, prefer copying the matching template content into the target repo's rule file.
 
-- Kiro: `scripts/setup_kiro_steering.py`
-- Claude Code: `scripts/install_claude_rule.py`
-- Cursor: `scripts/install_cursor_rule.py`
-- Windsurf: `scripts/install_windsurf_rule.py`
-- Codex: `scripts/install_codex_rule.py`
+- Kiro: copy the rule block from `references/steering-template.md` into `.kiro/steering/project-doc-tracker.md`
+- Claude Code: copy `references/tool-rule-templates/claude.md` into `CLAUDE.md`
+- Cursor: copy `references/tool-rule-templates/cursor.md` into `.cursorrules`
+- Windsurf: copy `references/tool-rule-templates/windsurf.md` into `.windsurfrules`
+- Codex: copy `references/tool-rule-templates/codex.md` into `AGENTS.md`
 
-Use `scripts/setup_tool_rules.py --tool <tool>` only when a generic entrypoint is more convenient than the tool-specific wrapper.
+Only use the helper scripts when the user explicitly wants scripted installation.

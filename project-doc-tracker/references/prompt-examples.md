@@ -46,7 +46,7 @@
 
 ## Install Persistent Tool Rules
 
-- `Please use $project-doc-tracker to install persistent Kiro steering into this repo by running the included installer script from the skill directory.`
-- `Please use $project-doc-tracker to install a CLAUDE.md rule file for this repo by running the included Claude installer script so Claude Code remembers to record project progress.`
-- `Please use $project-doc-tracker to install Cursor rules for this repository by running the included Cursor installer script from the skill directory.`
-- `Please use $project-doc-tracker to install AGENTS.md guidance for Codex by running the included Codex installer script from the skill directory so progress tracking stays persistent across sessions.`
+- `Please use $project-doc-tracker to install persistent Kiro steering into this repo by copying the steering template into .kiro/steering/project-doc-tracker.md.`
+- `Please use $project-doc-tracker to install a CLAUDE.md rule file for this repo by copying the included Claude template into the project root.`
+- `Please use $project-doc-tracker to install Cursor rules for this repository by copying the included Cursor template into .cursorrules.`
+- `Please use $project-doc-tracker to install AGENTS.md guidance for Codex by copying the included Codex template into the project root so progress tracking stays persistent across sessions.`

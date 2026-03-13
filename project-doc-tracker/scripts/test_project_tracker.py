@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import importlib.util
-import subprocess
-import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -20,7 +18,6 @@ def load_module(file_name: str, module_name: str):
 project_tracker = load_module("project_tracker.py", "project_tracker")
 setup_kiro_steering = load_module("setup_kiro_steering.py", "setup_kiro_steering")
 setup_tool_rules = load_module("setup_tool_rules.py", "setup_tool_rules")
-install_codex_rule = load_module("install_codex_rule.py", "install_codex_rule")
 
 
 class ProjectTrackerTests(unittest.TestCase):
@@ -154,23 +151,6 @@ class ProjectTrackerTests(unittest.TestCase):
         self.assertEqual(codex_target, self.root / "AGENTS.md")
         self.assertIn("## Project Progress Tracking Rules", cursor_target.read_text(encoding="utf-8"))
         self.assertIn("## Project Progress Tracking Rules", codex_target.read_text(encoding="utf-8"))
-
-    def test_tool_specific_installer_modules_share_generic_logic(self) -> None:
-        result = subprocess.run(
-            [
-                sys.executable,
-                str(Path(install_codex_rule.__file__)),
-                "--project-root",
-                str(self.root),
-            ],
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-
-        self.assertIn("AGENTS.md", result.stdout)
-        self.assertTrue((self.root / "AGENTS.md").exists())
-
 
 if __name__ == "__main__":
     unittest.main()

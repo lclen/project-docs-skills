@@ -88,19 +88,17 @@ Install one with the generic entrypoint:
 python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool codex --project-root .
 ```
 
-Or use a tool-specific installer that another agent can discover more easily:
+Or simply copy the matching template into the target rule file:
+
+- `project-doc-tracker/references/tool-rule-templates/codex.md` -> `AGENTS.md`
+- `project-doc-tracker/references/tool-rule-templates/claude.md` -> `CLAUDE.md`
+- `project-doc-tracker/references/tool-rule-templates/cursor.md` -> `.cursorrules`
+- `project-doc-tracker/references/tool-rule-templates/windsurf.md` -> `.windsurfrules`
+
+For Kiro specifically, copy the rule block from `project-doc-tracker/references/steering-template.md` into:
 
 ```bash
-python .agents/skills/project-doc-tracker/scripts/install_codex_rule.py --project-root .
-python .agents/skills/project-doc-tracker/scripts/install_claude_rule.py --project-root .
-python .agents/skills/project-doc-tracker/scripts/install_cursor_rule.py --project-root .
-python .agents/skills/project-doc-tracker/scripts/install_windsurf_rule.py --project-root .
-```
-
-For Kiro specifically:
-
-```bash
-python .agents/skills/project-doc-tracker/scripts/setup_kiro_steering.py --project-root .
+.kiro/steering/project-doc-tracker.md
 ```
 
 ## Example Prompts

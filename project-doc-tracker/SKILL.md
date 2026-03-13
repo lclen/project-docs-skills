@@ -112,11 +112,10 @@ Read `references/prompt-examples.md` when you want ready-to-use prompt templates
 - When generating formal documentation, reuse `$professional-markdown` instead of extending `project_tracker.py`.
 - When the user wants continuous follow-up, explain that the skill can be paired with automation, but the skill alone is not a scheduler.
 - If the repo already contains meaningful code, do not leave the freshly initialized tracker mostly empty; scan the codebase and backfill the initial `OVERVIEW.md`, key feature notes, and formal-doc candidates.
-- For Kiro users, installation of the skill does not automatically create `.kiro/steering/project-doc-tracker.md`. Use `scripts/setup_kiro_steering.py` to install it into a target project, or fall back to `references/steering-template.md` for manual copy.
-- For Claude Code, Cursor, Windsurf, and Codex users, prefer the tool-specific installer scripts so another agent can discover and run them directly:
-  - `scripts/install_claude_rule.py`
-  - `scripts/install_cursor_rule.py`
-  - `scripts/install_windsurf_rule.py`
-  - `scripts/install_codex_rule.py`
-- Keep `scripts/setup_tool_rules.py --tool <tool>` as the generic fallback when you need a single multi-tool entrypoint.
-- When the user asks for persistent project rules, do not just describe the files. Run the installer script from this skill directory so the target repo actually gets the matching `CLAUDE.md`, `.cursorrules`, `.windsurfrules`, `AGENTS.md`, or Kiro steering file.
+- For Kiro users, installation of the skill does not automatically create `.kiro/steering/project-doc-tracker.md`. Use `references/steering-template.md` as the source and copy the rule block into the target repo.
+- For Claude Code, Cursor, Windsurf, and Codex users, use the matching file under `references/tool-rule-templates/` and copy it into the target repo's persistent rule file:
+  - `claude.md` -> `CLAUDE.md`
+  - `cursor.md` -> `.cursorrules`
+  - `windsurf.md` -> `.windsurfrules`
+  - `codex.md` -> `AGENTS.md`
+- When the user asks for persistent project rules, prefer directly copying the matching template content into the target file rather than adding extra installation layers.
