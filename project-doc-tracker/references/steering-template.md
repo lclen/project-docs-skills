@@ -2,11 +2,17 @@
 
 Copy the content below into the rule file used by your AI tool so it remembers to record meaningful project progress automatically.
 
+For Kiro users, you can install this block automatically with:
+
+```bash
+python .agents/skills/project-doc-tracker/scripts/setup_kiro_steering.py --project-root .
+```
+
 ## Tool Mapping
 
 | Tool | Rule File Location |
 | --- | --- |
-| Kiro | `.kiro/steering/project-doc-tracker.md` (copy this template there manually; skill installation alone does not create it) |
+| Kiro | `.kiro/steering/project-doc-tracker.md` (install with `scripts/setup_kiro_steering.py`, or copy manually if needed) |
 | Claude Code | `CLAUDE.md` or `.claude/CLAUDE.md` |
 | Cursor | `.cursorrules` or `.cursor/rules/*.mdc` |
 | Windsurf | `.windsurfrules` |

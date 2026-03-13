@@ -12,6 +12,12 @@ assert SPEC and SPEC.loader
 project_tracker = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(project_tracker)
 
+STEERING_SCRIPT_PATH = Path(__file__).with_name("setup_kiro_steering.py")
+STEERING_SPEC = importlib.util.spec_from_file_location("setup_kiro_steering", STEERING_SCRIPT_PATH)
+assert STEERING_SPEC and STEERING_SPEC.loader
+setup_kiro_steering = importlib.util.module_from_spec(STEERING_SPEC)
+STEERING_SPEC.loader.exec_module(setup_kiro_steering)
+
 
 class ProjectTrackerTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -127,6 +133,14 @@ class ProjectTrackerTests(unittest.TestCase):
         self.assertIn("## 相关文档", note)
         self.assertIn("- docs/specs/alpha.md", note)
         self.assertIn("docs/modules/alpha.md", note)
+
+    def test_setup_kiro_steering_installs_only_the_copy_block(self) -> None:
+        target = setup_kiro_steering.install_steering(self.root, force=False)
+        content = target.read_text(encoding="utf-8")
+
+        self.assertTrue(target.exists())
+        self.assertIn("## Project Progress Tracking Rules", content)
+        self.assertNotIn("# Steering Template: project-doc-tracker", content)
 
 
 if __name__ == "__main__":

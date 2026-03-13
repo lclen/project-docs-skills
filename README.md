@@ -1,108 +1,48 @@
-# Project Docs Skills
+# Project Docs Skills Package
 
-> A small skill package for long-running project memory and publication-quality Markdown documentation.
-
-This repository bundles two complementary skills:
+This package bundles two related skills:
 
 - `project-doc-tracker`
 - `professional-markdown`
 
-Together they help an agent:
+Together they provide a lightweight tracker workflow plus high-quality long-form Markdown generation.
 
-1. keep project progress from being forgotten over time
-2. maintain lightweight tracker docs inside the repo
-3. promote mature modules into polished long-form documentation
+## Package Contents
 
-## Install
+- `project-doc-tracker`
+  - maintains `docs/project-tracker/`
+  - records progress logs and lightweight feature notes
+  - identifies mature modules that should be promoted into formal documentation
 
-Install the whole package:
+- `professional-markdown`
+  - writes polished, publication-quality Markdown
+  - is intended for formal docs such as `docs/modules/*.md`, architecture writeups, and high-quality READMEs
+
+## Recommended Flow
+
+1. Use `project-doc-tracker` to initialize or update project memory.
+2. Keep `OVERVIEW.md`, `PROGRESS.md`, and lightweight feature notes current.
+3. When a module becomes mature, use `professional-markdown` to create the formal long-form document.
+
+## Build the Package
+
+From the repo root:
 
 ```bash
-npx skills add lclen/project-docs-skills
+python scripts/build_skill_package.py
 ```
 
-Install only specific skills:
-
-```bash
-npx skills add lclen/project-docs-skills --skill project-doc-tracker --skill professional-markdown
-```
-
-## Included Skills
-
-### `project-doc-tracker`
-
-Use this skill to maintain lightweight project memory inside a repository.
-
-It is designed for:
-
-- project progress tracking
-- append-only session logs
-- lightweight feature notes
-- project context recovery after a pause
-- identifying modules that should later become formal docs
-
-Typical outputs:
-
-- `docs/project-tracker/OVERVIEW.md`
-- `docs/project-tracker/PROGRESS.md`
-- `docs/project-tracker/features/*.md`
-
-### `professional-markdown`
-
-Use this skill when the output should feel publication-ready rather than merely correct.
-
-It is designed for:
-
-- architecture documents
-- module documentation
-- high-quality READMEs
-- structured technical explanations
-- polished Markdown with diagrams, tables, and callouts
-
-Typical outputs:
-
-- `docs/modules/*.md`
-- architecture guides
-- public-facing technical documentation
-
-## Recommended Workflow
-
-1. Use `project-doc-tracker` to initialize or update the tracker documentation system.
-2. Keep `OVERVIEW.md`, `PROGRESS.md`, and lightweight feature notes current during development.
-3. When a feature or module becomes stable, use `professional-markdown` to create the long-form formal document.
-4. Backfill the resulting formal doc path into the tracker.
-
-## Example Prompts
-
-Initialize tracker docs for an existing codebase:
+This creates:
 
 ```text
-Please use $project-doc-tracker to initialize the project tracker documentation system. This repository already has meaningful code, so do not leave empty templates. Scan the main modules and backfill the initial overview and feature notes.
-```
-
-Promote a mature module into a formal doc:
-
-```text
-Use $project-doc-tracker to identify whether memory-system is ready for promote-to-doc, then hand it off to $professional-markdown for a full formal document.
-```
-
-Write a polished module document directly:
-
-```text
-Please use $professional-markdown to write a high-quality module document for the plugin system, including overview, architecture, key files, usage, limitations, and future improvements.
-```
-
-## Repository Layout
-
-```text
-project-docs-skills/
+publish/project-docs-skills/
 ├─ README.md
 ├─ project-doc-tracker/
 └─ professional-markdown/
 ```
 
-## Notes
+## Publishing Notes
 
-- `skills.sh` does not currently use a separate publish button. Public Git repositories are shared directly, and wider usage helps them surface in the ecosystem.
-- This repo is intentionally focused on documentation workflow, not on generic coding or project bootstrap.
-- For Kiro users, installing the skill package does not automatically create `.kiro/steering/project-doc-tracker.md` inside a project. Use `project-doc-tracker/scripts/setup_kiro_steering.py --project-root .` to install it into the target repo, or fall back to `project-doc-tracker/references/steering-template.md` for manual copy.
+The generated `publish/project-docs-skills/` directory is the intended package payload for release or for moving into a dedicated public repository.
+
+If you want to publish these skills through a public package repo later, use the generated folder as the source of truth for the release artifact.
