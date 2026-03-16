@@ -1,27 +1,14 @@
 # Steering Template: project-doc-tracker
 
-Copy the content below into the rule file used by your AI tool so it remembers to record meaningful project progress automatically.
+Use the Kiro steering content below for `.kiro/steering/project-doc-tracker.md`.
 
-For Kiro users, you can install this block automatically with:
-
-```bash
-python .agents/skills/project-doc-tracker/scripts/setup_kiro_steering.py --project-root .
-```
-
-For other tools, use:
-
-```bash
-python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool claude --project-root .
-python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool cursor --project-root .
-python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool windsurf --project-root .
-python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool codex --project-root .
-```
+For Claude Code, Cursor, Windsurf, and Codex, reuse the matching file under `references/tool-rule-templates/`.
 
 ## Tool Mapping
 
 | Tool | Rule File Location |
 | --- | --- |
-| Kiro | `.kiro/steering/project-doc-tracker.md` (install with `scripts/setup_kiro_steering.py`, or copy manually if needed) |
+| Kiro | `.kiro/steering/project-doc-tracker.md` |
 | Claude Code | `CLAUDE.md` or `.claude/CLAUDE.md` |
 | Cursor | `.cursorrules` or `.cursor/rules/*.mdc` |
 | Windsurf | `.windsurfrules` |
@@ -30,64 +17,81 @@ python .agents/skills/project-doc-tracker/scripts/setup_tool_rules.py --tool cod
 
 ---
 
-## Copy Block
+## Kiro Steering Content
 
 ```markdown
-## Project Progress Tracking Rules
+---
+inclusion: always
+---
 
-This project uses the `project-doc-tracker` skill to preserve development progress over time.
+# Project Progress Tracking Rules
 
-### When to Record Progress
+This project uses the `project-doc-tracker` skill to record development progress.
 
-Update the tracker proactively after any meaningful change, without waiting for the user to remind you:
-- finishing a feature or sub-feature
-- fixing a bug
-- completing a refactor or architecture change
-- making several meaningful code changes in one conversation
+## When to Record
 
-### How to Record Progress
+Guiding principle: **"Would this record help understand the current project state in a new conversation?"**
 
-Append a progress log entry:
+If yes, record it. If it wouldn't matter, skip it.
 
-  python .agents/skills/project-doc-tracker/scripts/project_tracker.py \
-    --project-root . log \
-    --change-type <feature|bugfix|refactor|docs|research|decision> \
-    --feature-id <feature-id> \
-    --summary "What changed in this session" \
-    --file "path/to/changed/file.py" \
-    --next-step "What should happen next" \
-    --confidence <high|medium|low>
+Typically worth recording: new feature implementation, architecture changes, significant multi-file fixes, key decisions.
+Typically not worth recording: single-file minor bugfix, typo corrections, formatting tweaks, dependency version bumps.
 
-Sync the overview:
+## When to Read
 
-  python .agents/skills/project-doc-tracker/scripts/project_tracker.py \
-    --project-root . sync-item \
-    --feature-id <feature-id> \
-    --title "Feature title" \
-    --status <in_progress|done|blocked|stable> \
-    --summary "One-sentence current status" \
-    --next-step "Recommended next step" \
-    --file "key/file.py"
+When the user starts a new feature or significant task, read `docs/project-tracker/OVERVIEW.md` first to understand the current project state before beginning work.
 
-### Confidence Rules
+## How to Record
 
-- high: directly supported by code changes or explicit user statements
-- medium: inferred from multiple strong signals
-- low: plausible but still uncertain, so mark it clearly
+Use the helper script to write entries — do not manually compose Markdown:
 
-### What Not To Do
+```bash
+# Append a progress log entry
+python .agents/skills/project-doc-tracker/scripts/project_tracker.py \
+  --project-root . log \
+  --change-type <feature|bugfix|refactor|docs|research|decision> \
+  --feature-id <feature-id, e.g. venv-packaging> \
+  --summary "What was done" \
+  --file "path/to/changed/file.py" \
+  --next-step "What to do next" \
+  --blockers "Blockers, omit if none" \
+  --confidence <high|medium|low>
 
-- Do not write high-confidence progress from memory alone; check `git status`, changed files, or specs first.
-- Do not delete or overwrite the history in `PROGRESS.md`.
-- Do not auto-edit `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, or similar rule files.
+# Sync active items in OVERVIEW.md
+python .agents/skills/project-doc-tracker/scripts/project_tracker.py \
+  --project-root . sync-item \
+  --feature-id <feature-id> \
+  --title "Feature title" \
+  --status <in_progress|done|blocked> \
+  --summary "One-line current status" \
+  --next-step "Next step" \
+  --file "key file"
+```
 
-### Tracker Paths
+## Confidence Rules
 
-docs/project-tracker/OVERVIEW.md   - project overview and active-item table
-docs/project-tracker/PROGRESS.md   - append-only session log
-docs/project-tracker/features/     - lightweight feature notes
+- `high`: Directly from code changes or explicit user statements
+- `medium`: Inferred from multiple signals
+- `low`: Speculative conclusion, must be marked "to be confirmed"
 
-If `docs/project-tracker/` does not exist yet, run:
+## Do Not
 
-  python .agents/skills/project-doc-tracker/scripts/project_tracker.py --project-root . init
+- Do not write high-confidence conclusions from memory — check git status or changed files first
+- Do not delete or overwrite historical records in PROGRESS.md
+- Do not automatically modify AGENTS.md, CLAUDE.md, .cursorrules, or similar rule files
+
+## Tracking Document Location
+
+```text
+docs/project-tracker/
+├─ OVERVIEW.md     # Project overview, active items table
+├─ PROGRESS.md     # Append-only session log
+└─ features/       # Detailed feature documentation
+```
+
+If `docs/project-tracker/` does not exist, run:
+
+```bash
+python .agents/skills/project-doc-tracker/scripts/project_tracker.py --project-root . init
+```
 ```
